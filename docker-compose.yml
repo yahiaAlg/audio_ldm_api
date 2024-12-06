@@ -1,18 +1,27 @@
-version: '3.8'
-
 services:
-  audioldm-api:
+  sd-api:
     build: .
     ports:
-      - "8095:8000"
-    volumes:
-      - .:/app
+      - "8096:8000"
     environment:
-      - NUM_WORKERS=2 
-      - TORCH_NUM_THREADS=4
+      - API_KEY=your-secret-key-here
+      - OMP_NUM_THREADS=8
+      - MKL_NUM_THREADS=8
+      - NUMPY_NUM_THREADS=8
+      - HF_HOME=/app/cache
+      - TRANSFORMERS_CACHE=/app/cache
+      - HF_DATASETS_CACHE=/app/cache
     deploy:
       resources:
         limits:
-          cpus: '4'
+          cpus: '0.000'
+          memory: 16G
+        reservations:
+          cpus: '4.0'
           memory: 8G
+    volumes:
+      - type: bind
+        source: ./cache
+        target: /app/cache
+    user: "65534:65534"  # nobody user
     restart: unless-stopped
