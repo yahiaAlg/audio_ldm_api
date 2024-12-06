@@ -15,7 +15,12 @@ from contextlib import contextmanager
 import threading
 import queue
 import os
+from dotenv import load_dotenv, find_dotenv
 
+load_dotenv(
+    find_dotenv(),
+    override=True
+)
 # Set number of threads for PyTorch
 torch.set_num_threads(int(os.getenv("TORCH_NUM_THREADS", "4")))
 
