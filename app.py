@@ -138,6 +138,16 @@ async def health_check():
     }
 
 
+@app.get("/")
+async def root():
+    return {"message": "AudioLDM API is running"}
+
+
+@app.get("/test")
+async def test():
+    return {"status": "ok"}
+
+
 if __name__ == "__main__":
     import uvicorn
 

@@ -8,7 +8,7 @@ services:
     volumes:
       - .:/app
     environment:
-      - NUM_WORKERS=2
+      - NUM_WORKERS=2 
       - TORCH_NUM_THREADS=4
     deploy:
       resources:
