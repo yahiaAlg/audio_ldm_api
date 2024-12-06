@@ -20,7 +20,7 @@ services:
           cpus: '4.0'
           memory: 8G
     volumes:
-      - sd_cache:/app/cache  # Changed this line
+      - sd_cache:/app/cache  
     restart: unless-stopped
 
 volumes:
