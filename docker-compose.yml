@@ -24,6 +24,6 @@ services:
       - type: bind
         source: ./cache
         target: /app/cache
-      - ./tmp:/app/tmp   # Add this line
+      - ./tmp:/app/tmp   
     user: "65534:65534"  # nobody user
     restart: unless-stopped
