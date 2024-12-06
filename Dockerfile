@@ -20,11 +20,6 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Create cache directory with proper permissions
-RUN mkdir -p /app/cache && \
-    chown -R 65534:65534 /app && \
-    chmod -R 755 /app
-
 # Install Python packages
 COPY requirements.txt .
 RUN pip3 install --no-cache-dir numpy==1.23.5 && \
@@ -33,12 +28,13 @@ RUN pip3 install --no-cache-dir numpy==1.23.5 && \
 # Copy application code
 COPY . .
 
-# Ensure proper permissions for all files
-RUN chown -R 65534:65534 /app && \
-    chmod -R 755 /app
+# Create cache directory and set permissions
+RUN mkdir -p /app/cache && \
+    chmod -R 777 /app/cache && \
+    chown -R 1000:1000 /app/cache
 
-# Switch to non-root user (nobody)
-USER nobody
+# Run as non-root user with UID 1000
+USER 1000
 
 # Expose port
 EXPOSE 8000
