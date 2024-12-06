@@ -11,6 +11,7 @@ services:
       - HF_HOME=/app/cache
       - TRANSFORMERS_CACHE=/app/cache
       - HF_DATASETS_CACHE=/app/cache
+      - TMPDIR=/app/tmp  # Add this line
     deploy:
       resources:
         limits:
@@ -23,5 +24,6 @@ services:
       - type: bind
         source: ./cache
         target: /app/cache
+      - ./tmp:/app/tmp   # Add this line
     user: "65534:65534"  # nobody user
     restart: unless-stopped
