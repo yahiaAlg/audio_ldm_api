@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  audioldm-api:
+    build: .
+    ports:
+      - "8095:8000"
+    volumes:
+      - .:/app
+    environment:
+      - NUM_WORKERS=2
+      - TORCH_NUM_THREADS=4
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+    restart: unless-stopped
